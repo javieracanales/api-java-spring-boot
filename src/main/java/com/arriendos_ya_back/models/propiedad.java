@@ -1,7 +1,6 @@
 package com.arriendos_ya_back.models;
 
 import jakarta.persistence.*;
-import com.arriendos_ya_back.models.arrendatario;
 
 @Entity
 @Table(name = "propiedades")
@@ -34,10 +33,10 @@ public class propiedad {
 
     private Boolean disponible = true;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "arrendatario", referencedColumnName = "rut")
     private arrendatario arrendatario;
-
+    
     // --- GETTERS Y SETTERS ---
 
     public Long getId() { return id; }

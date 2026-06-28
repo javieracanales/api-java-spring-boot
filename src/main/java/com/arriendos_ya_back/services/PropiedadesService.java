@@ -2,8 +2,8 @@ package com.arriendos_ya_back.services;
 
 import com.arriendos_ya_back.models.arrendatario;
 import com.arriendos_ya_back.models.propiedad;
-import com.arriendos_ya_back.repositories.ArrendatariosRepository;
 import com.arriendos_ya_back.repositories.PropiedadesRepository;
+import com.arriendos_ya_back.repositories.ArrendatariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -35,12 +35,16 @@ public class PropiedadesService {
     }
 
     public Optional<propiedad> asignarArrendatario(Long propiedadId, String arrendatarioRut) {
-        return propiedadesRepository.findById(propiedadId).flatMap(propiedad ->
-                arrendatariosRepository.findById(arrendatarioRut).map(arrendatario -> {
-                    propiedad.setArrendatario(arrendatario);
-                    return propiedadesRepository.save(propiedad);
-                })
-        );
-    }
+        String rutLimpio = arrendatarioRut.trim().toUpperCase(); // Forzamos mayúscula automática
 
+        Optional<propiedad> propiedadOpt = propiedadesRepository.findById(propiedadId);
+        Optional<arrendatario> arrendatarioOpt = arrendatariosRepository.findById(rutLimpio);
+
+        if (propiedadOpt.isPresent() && arrendatarioOpt.isPresent()) {
+            propiedad propiedadReal = propiedadOpt.get();
+            propiedadReal.setArrendatario(arrendatarioOpt.get());
+            return Optional.of(propiedadesRepository.save(propiedadReal));
+        }
+        return Optional.empty();
+    }
 }

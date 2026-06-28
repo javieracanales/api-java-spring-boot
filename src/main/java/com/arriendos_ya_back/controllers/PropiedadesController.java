@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propiedades")
@@ -63,12 +62,17 @@ public class PropiedadesController {
             return ResponseEntity.ok().<Void>build();
         }).orElse(ResponseEntity.notFound().build());
     }
+
     @PutMapping("/{propiedadId}/asignar-arrendatario/{arrendatarioRut}")
     public ResponseEntity<propiedad> asignarArrendatario(
             @PathVariable Long propiedadId,
             @PathVariable String arrendatarioRut) {
-        return propiedadesService.asignarArrendatario(propiedadId, arrendatarioRut)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        java.util.Optional<propiedad> propiedadActualizada = propiedadesService.asignarArrendatario(propiedadId, arrendatarioRut);
+
+        if (propiedadActualizada.isPresent()) {
+            return ResponseEntity.ok(propiedadActualizada.get());
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 si la propiedad o el RUT no existen
+        }
     }
 }
