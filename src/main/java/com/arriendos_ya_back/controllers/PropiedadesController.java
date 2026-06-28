@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propiedades")
@@ -61,5 +62,13 @@ public class PropiedadesController {
             propiedadesService.eliminarPropiedades(id);
             return ResponseEntity.ok().<Void>build();
         }).orElse(ResponseEntity.notFound().build());
+    }
+    @PutMapping("/{propiedadId}/asignar-arrendatario/{arrendatarioRut}")
+    public ResponseEntity<propiedad> asignarArrendatario(
+            @PathVariable Long propiedadId,
+            @PathVariable String arrendatarioRut) {
+        return propiedadesService.asignarArrendatario(propiedadId, arrendatarioRut)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
