@@ -47,4 +47,5 @@ public class PropiedadesService {
         }
         return Optional.empty();
     }
+    
 }

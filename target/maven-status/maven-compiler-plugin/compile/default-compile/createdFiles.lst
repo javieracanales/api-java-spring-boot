@@ -1,7 +1,11 @@
+com/arriendos_ya_back/repositories/EventosRepository.class
 com/arriendos_ya_back/models/propiedad.class
+com/arriendos_ya_back/controllers/EventosController.class
 com/arriendos_ya_back/models/arrendatario.class
 com/arriendos_ya_back/services/ArrendatariosService.class
 com/arriendos_ya_back/controllers/PropiedadesController.class
+com/arriendos_ya_back/services/EventosService.class
+com/arriendos_ya_back/models/evento.class
 com/arriendos_ya_back/ProyJavaSbApplication.class
 com/arriendos_ya_back/repositories/PropietariosRepository.class
 com/arriendos_ya_back/services/PropiedadesService.class

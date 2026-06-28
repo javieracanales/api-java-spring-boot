@@ -75,4 +75,5 @@ public class PropiedadesController {
             return ResponseEntity.notFound().build(); // Retorna 404 si la propiedad o el RUT no existen
         }
     }
+    
 }

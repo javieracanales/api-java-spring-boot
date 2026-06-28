@@ -1,4 +1,6 @@
 package com.arriendos_ya_back.models;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -36,6 +38,10 @@ public class propiedad {
     @ManyToOne
     @JoinColumn(name = "arrendatario", referencedColumnName = "rut")
     private arrendatario arrendatario;
+
+    @OneToMany(mappedBy = "propiedad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<evento> eventos;
     
     // --- GETTERS Y SETTERS ---
 
@@ -68,4 +74,7 @@ public class propiedad {
 
     public arrendatario getArrendatario() { return arrendatario; }
     public void setArrendatario(arrendatario arrendatario) { this.arrendatario = arrendatario; }
+
+    public List<evento> getEventos() { return eventos; }
+    public void setEventos(List<evento> eventos) { this.eventos = eventos; }
 }
